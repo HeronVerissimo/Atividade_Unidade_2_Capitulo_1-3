@@ -20,16 +20,22 @@
 <body style="margin:0; overflow:hidden;">
     <a-scene embedded arjs="sourceType: webcam;" gesture-detector>
         <a-entity camera cursor="rayOrigin: mouse; fuse:false" raycaster="objects: .tocavel"></a-entity>
-
+        
         <a-marker preset="hiro">
-            <a-entity class="tocavel" gesture-handler="minScale: 0.01" gltf-model="url(soda_can.glb)"
-                scale="0.1 0.1 0.1" position="0 0.5 0"
-                animation__up="property: position; to: 0 1 0; dur: 300; startEvents: tap; easing: easeOutQuad"
+            <a-entity class="tocavel" 
+                gesture-handler="minScale: 0.01" 
+                gltf-model="url(soda_can.glb)" 
+                scale="0.1 0.1 0.1"
+                position="0 0.5 0" 
+                
+                animation__up="property: position; to: 0 1 0; dur: 300; startEvents: click; easing: easeOutQuad"
                 animation__down="property: position; to: 0 0.5 0; dur: 300; startEvents: animation__up-end; easing: easeInQuad"
+                
                 animation__jump1="property: scale; to: 0.2 0.2 0.2; dur: 200; startEvents: doubletap"
-                animation__jump2="property: scale; to: 0.1 0.1 0.1; dur: 200; startEvents: animation__jump1-end">
-            </a-entity>
-
+                animation__jump2="property: scale; to: 0.1 0.1 0.1; dur: 200; startEvents: animation__jump1-end"
+                
+            ></a-entity>
+            
             <a-light type="ambient" color="#FFF"></a-light>
             <a-light type="directional" intensity="0.8" position="-1 4 5"></a-light>
         </a-marker>
