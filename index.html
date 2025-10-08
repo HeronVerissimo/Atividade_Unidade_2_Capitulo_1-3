@@ -2,15 +2,12 @@
 <html>
 
 <head>
-    <title>Meu Projeto AR</title>
-    <!-- A-Frame núcleo (renderização 3D) -->
+    <title>Meu Projeto AR Interativo</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <!-- aframe-extras: habilita animation-mixer para clipes GLB -->
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
-    <!-- AR.js para A-Frame (rastreamento marker-based) -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <!-- ADICIONADO: biblioteca de gestos (detector + handler) -->
     <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+
     <style>
         body {
             margin: 0;
@@ -21,23 +18,25 @@
 </head>
 
 <body style="margin:0; overflow:hidden;">
-    <!-- Cena RA embutida que usa a webcam -->
     <a-scene embedded arjs="sourceType: webcam;" gesture-detector>
-        <!-- Câmera controlada pelo AR.js -->
         <a-entity camera cursor="rayOrigin: mouse; fuse:false" raycaster="objects: .tocavel"></a-entity>
-        <!-- Marcador Hiro padrão -->
+        
         <a-marker preset="hiro">
-            <!-- Modelo GLB animado -->
-            <a-entity class="tocavel" gesture-handler gltf-model="url(soda_can.glb)" scale="0.1 0.1 0.1"
-                position="0 0.5 0" animation__up="property: position; to: 0 1 0; dur:120; startEvents: mousedown"
-                animation__down="property: position; to: 0 0.5 0; dur:120; startEvents: mouseup"
-                animation__jump1="property: scale; to: 0.2 0.2 0.2; dur:300; startEvents: mouseenter; endEvents: mouseleave"
-                animation__jump2="property: scale; to: 0.1 0.1 0.1; dur:300; endEvents: mouseleave"
-
-                ></a-entity>
-            <!-- Luz ambiente suave -->
+            <a-entity class="tocavel" gesture-handler 
+                gltf-model="url(soda_can.glb)" 
+                scale="0.1 0.1 0.1"
+                position="0 0.5 0" 
+                
+                animation__up="property: position; to: 0 1 0; dur: 300; startEvents: tap; easing: easeOutQuad"
+                animation__down="property: position; to: 0 0.5 0; dur: 300; startEvents: animation__up-end; easing: easeInQuad"
+                
+                animation__jump1="property: scale; to: 0.2 0.2 0.2; dur: 200; startEvents: doubletap"
+                animation__jump2="property: scale; to: 0.1 0.1 0.1; dur: 200; startEvents: animation__jump1-end"
+                
+                >
+            </a-entity>
+            
             <a-light type="ambient" color="#FFF"></a-light>
-            <!-- Luz direcional para realçar o modelo -->
             <a-light type="directional" intensity="0.8" position="-1 4 5"></a-light>
         </a-marker>
     </a-scene>
